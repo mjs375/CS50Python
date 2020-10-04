@@ -1,0 +1,29 @@
+/* SAMPLE CSS PAGE*/
+
+/*
+Recall the DOM: Document Object Model.
+If a parent element has a style applied to it,
+  the style will also affect any children elements.
+
+Link to this CSS by including the following element in all files:
+  <link rel="stylesheet" href="styles.css" />
+
+ORDER OF OPERATIONS FOR CSS:
+  Inline styling
+  id
+  class
+  element type
+
+
+*/
+
+
+table {
+  border: 1px solid black;
+  border-collapse: collapse;
+  color: red;
+}
+
+td, th {
+  padding: 2px;
+}

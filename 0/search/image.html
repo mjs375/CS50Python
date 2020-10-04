@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Search</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    </head>
+
+
+    <body>
+      <div class="center">
+        <div id="img_logo"><!--GOOGLE LOGO-->
+          <img alt="Google" height="92" src="logo.png" width="272">
+        </div>
+
+        <div>
+          <form action="https://google.com/search"> <!--ACTION tells browser where to submit the data-->
+              <input type="text" name="q"> <!--The 'q' means that whatever is entered into this input field is included as a GET parameter in the URL.-->
+              <input type="hidden" name="tbm" value="isch"> <!--Sends to G Image Search-->
+              <br>
+              <input id="Image_button" type="submit" value="Image Search">
+          </form>
+        </div>
+      </div>
+    </body>
+</html>

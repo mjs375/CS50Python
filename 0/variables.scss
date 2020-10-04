@@ -1,0 +1,34 @@
+$color: red; /*SASS creates a VARIABLE called 'color': applied to multiple elements, but those elements have other different CSS styles. Apply a VARIABLE style to each of them, then declare the variable with $variable.*/
+
+ul {
+    font-size: 14px;
+    color: $color; /**/
+}
+
+ol {
+    font-size: 18px;
+    color: $color; /**/
+}
+
+
+
+
+/*
+
+Now, in order to link this styling to our HTML file, we can’t just link to the .scss file because most web browsers only recognize .css files. To deal with this problem, we have to download a program called Sass onto our computers.
+
+		Then, in our terminal, we write 
+		sass variables.scss:variables.css 
+		This command will compile a .scss file named variables.scss into a .css file named variables.css, to which you can add a link in your HTML page.
+
+ To speed up this process, we can use the command 
+		sass --watch variables.scss:variables.css 
+		which automatically changes the .css file every time a change is detected in the .scss file.
+
+
+
+
+
+
+
+*/

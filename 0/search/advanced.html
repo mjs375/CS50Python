@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Search</title>
+        <!--<link rel="stylesheet" href="styles.css">-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+
+        <style>
+          body.advbody {
+            margin: 0px;
+            font-family: Roboto, sans-serif;
+          }
+          #logo {
+            background-color:#F1F1F1;
+            height: 55px;
+          }
+          img.adv {
+            padding: 14px;
+          }
+          .title {
+            margin-left: 26px;
+            margin-top: 26px;
+            margin-bottom: 26px;
+            color: #D93025;
+            font-size: 13pt;
+          }
+          .fields {
+            margin-left: 26px;
+            width: 90%;
+            border: solid black 1px;
+          }
+          #Advanced_button {
+            color: white;
+            background-color: #4689F7;
+            border: 1px solid #3167CB;
+            border-radius: 2px;
+            height: 24px;
+            float: right;
+          }
+          div.form-group label {
+            display: inline-block;
+            width:  auto%;
+            text-align: left;
+            font-size: 10pt;
+          }
+          input[type=text] {
+            width: 65%;
+          }
+
+        </style>
+    </head>
+
+
+
+
+      <body class="advbody">
+
+          <div id="logo"><!--GOOGLE LOGO-->
+            <img class="adv" alt="Google" height="27" src="logo_transparent.png">
+          </div>
+
+          <div class="title">
+            Advanced Search
+          </div>
+
+          <hr/> <!--Horizontal line-->
+
+          <div class="fields">
+            <form action="https://google.com/search">
+                <span>Find pages with...</span><br>
+                <br>
+                <div class="form-group">
+                  <label for="all" class="desc">all these words: </label>
+                  <input id="all" type="text" name="q">
+                </div>
+                <br>
+                <div class="form-group">
+                  <label for="this" class="desc">this exact word or phrase: </label>
+                  <input id="this" type="text" name="q">
+                </div>
+                <br>
+                <div class="form-group">
+                  <label for="any" class="desc">any of these words: </label>
+                  <input id="any" type="text" name="q">
+                </div>
+                <br>
+                <div class="form-group">
+                  <label for="none" class="desc">none of these words: </label>
+                  <input id="none" type="text" name="q">
+                </div>
+                <br>
+                <div class="form-group">
+                  <input id="Advanced_button" type="submit" value="Advanced Search">
+                </div>
+            </form>
+          </div>
+
+      </body>
+</html>
