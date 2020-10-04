@@ -8,11 +8,9 @@ https://github.com/mjs375/CS50Python
 #
 
 git clone <repository url>
-  # Download the repository to your local computer
-ls
-cd <repository name>
-
-git add <filename> #OR# git add.   [adds all files within that directory]
-git commit -m "some message"
-git status
-git push
+  ls
+  cd <repository name>
+  git add <filename> #OR# git add.   [adds all files within that directory]
+  git commit -m "some message"
+  git status
+  git push
