@@ -1,5 +1,5 @@
 # CS50Python
-Repository for CS50: Web Programming with Python &amp; Javascript
+Repository for CS50: Web Programming with Python and Javascript
 Course started: October 1, 2020
 Matthew James Spitzer
 
