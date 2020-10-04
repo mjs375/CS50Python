@@ -16,3 +16,5 @@ git add <filename> #OR# git add.   [adds all files within that directory]
 git commit -m "some message"
 git status
 git push
+
+## GIT PULL: take changes on github.com, and pull them down to local version
