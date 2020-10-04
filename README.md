@@ -26,4 +26,4 @@ git pull
   # Everything between === ... >>> someone else made
   # Conflicting commit = "<some number: 5756c5434d89f..."
 ## How to address the merge conflict: which version do you want to keep? or combine them in some way?
-  # Make your changes, then commit them...
+  # Make your changes, then commit them... (add/commit/push)
