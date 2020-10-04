@@ -18,12 +18,3 @@ git status
 git push
 
 ## GIT PULL: take changes on github.com, and pull them down to local version
-git pull
-
-## MERGE CONFLICT: multiple people have made changes...
-  # "Conflict (content): merge conflict
-  # Everything between <<< ... === you made
-  # Everything between === ... >>> someone else made
-  # Conflicting commit = "<some number: 5756c5434d89f..."
-## How to address the merge conflict: which version do you want to keep? or combine them in some way?
-  # Make your changes, then commit them...
