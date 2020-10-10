@@ -1,0 +1,18 @@
+{% extends "encyclopedia/layout.html"%}
+
+{% block title %}
+  Create an Encyclopedia Entry
+{% endblock%}
+
+
+{% block body %}
+
+  <h1>Create a New Encyclopedia Entry:</h1>
+  
+  <form action="{% url 'wiki:new' %}" method="post">
+    {% csrf_token %} <!--A unique token generated for each user/session. Prevents external attacks.-->
+    {{ form }} <!--Django creates a form based on views.py-->
+    <input type="submit">
+  </form>
+
+{% endblock %}
