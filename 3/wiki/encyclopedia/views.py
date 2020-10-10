@@ -94,3 +94,76 @@ def edit(request, title): #'title' is from url string 'wiki/____'
             editentry = form.cleaned_data["editentry"]
             util.save_entry(title, editentry)
             return entry(request, title) #go back to entry page
+
+
+## SEARCH:
+"""
+$ git branch
+[new]
+$ git checkout new
+    (...finish search function...)
+$ git commit -am "Finished search function"
+$ git push
+    (Now new'branch is saved:)
+$ git checkout master
+$ git merge new
+
+$ python3 manage.py runserver
+
+"""
+
+
+## This matcher() checks for a matching substring (He - Hello)
+def matcher(en_try, q):
+    word = en_try
+    for i in range(len(q)):
+        if q[i] != word[i]:
+            return # exit function, not a partial match!
+    return word
+
+
+## This matcher() checks for matching letters in any order (e - Hello, Demo, ...)
+def old_matcher(en_try, q):
+    word = en_try #Python
+    for search_letter in q: # p[y]
+        if search_letter in word:
+            word = word.replace(q,"",1) #replace instance of "q" with "", 1st instance only
+        else:
+            return #exits the function
+    return en_try
+#
+#
+def search(request):
+    q = request.GET.get('q') # Obtain 'q' value from search form
+    q = q.lower()
+    new = util.list_entries() # Obtain LIST of entry titleS
+    new = [item.lower() for item in new] # Lower-case the titleS
+    #
+    if q in new: #check if search term exactly matches an Entry in the returned LIST
+        return entry(request, q) # if so, call on entry form, submit 'q' for 'title'
+    if q == "": # if search bar is empty:
+        return index(request) # Return the homepage
+    #
+    else: # Possible inexact match...
+        matches_list = [] # empty list to store possible partial matches
+        for en_try in new: # entry by entry...
+            match = matcher(en_try, q)
+            if match != None:
+                matches_list.append(match)
+        return render(request, "encyclopedia/search.html", {
+            "entries": matches_list,
+            "q": q
+        })
+
+
+
+
+
+
+
+
+
+
+"""
+
+"""
