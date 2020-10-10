@@ -4,30 +4,44 @@
         <title>Search</title>
         <!--<link rel="stylesheet" href="styles.css">-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
         <style>
           body.advbody {
             margin: 0px;
             font-family: Roboto, sans-serif;
           }
+          a {
+            color: #4285F4;
+            font-size: 10pt;
+          }
           #logo {
             background-color:#F1F1F1;
             height: 55px;
+            padding-top: 14px;
+            padding-left: 9px;
           }
           img.adv {
-            padding: 14px;
+            height: 28px;
           }
           .title {
-            margin-left: 26px;
-            margin-top: 26px;
-            margin-bottom: 26px;
+            padding-top: 20px;
+            padding-bottom: 5px;
+            padding-left: 35px;
             color: #D93025;
             font-size: 13pt;
           }
           .fields {
             margin-left: 26px;
             width: 90%;
-            border: solid black 1px;
+          }
+          label, input, span {
+            margin: 5px;
+            height: 30px;
+            padding-left: 10px;
+          }
+          label {
+            font-size: 11pt;
           }
           #Advanced_button {
             color: white;
@@ -35,7 +49,6 @@
             border: 1px solid #3167CB;
             border-radius: 2px;
             height: 24px;
-            float: right;
           }
           div.form-group label {
             display: inline-block;
@@ -44,10 +57,12 @@
             font-size: 10pt;
           }
           input[type=text] {
-            width: 65%;
+            width: 100%;
+            padding-right: 0px;
           }
 
         </style>
+
     </head>
 
 
@@ -55,45 +70,81 @@
 
       <body class="advbody">
 
+
           <div id="logo"><!--GOOGLE LOGO-->
-            <img class="adv" alt="Google" height="27" src="logo_transparent.png">
+            <img class="adv" alt="Google" src="logo_transparent.png">
+            <a style="position: fixed; padding-right: 7px; padding-top: 5px; right: 0;" href="index.html">Google Search</a>
+             <!-- -->
           </div>
 
-          <div class="title">
-            Advanced Search
+
+
+
+          <div class="container">
+            <div class="row">
+              <div class="co-sm-3">
+                <div class="title">
+                  Advanced Search
+                </div>
+              </div>
+            </div>
           </div>
 
           <hr/> <!--Horizontal line-->
 
-          <div class="fields">
-            <form action="https://google.com/search">
-                <span>Find pages with...</span><br>
-                <br>
-                <div class="form-group">
-                  <label for="all" class="desc">all these words: </label>
-                  <input id="all" type="text" name="q">
-                </div>
-                <br>
-                <div class="form-group">
-                  <label for="this" class="desc">this exact word or phrase: </label>
-                  <input id="this" type="text" name="q">
-                </div>
-                <br>
-                <div class="form-group">
-                  <label for="any" class="desc">any of these words: </label>
-                  <input id="any" type="text" name="q">
-                </div>
-                <br>
-                <div class="form-group">
-                  <label for="none" class="desc">none of these words: </label>
-                  <input id="none" type="text" name="q">
-                </div>
-                <br>
-                <div class="form-group">
-                  <input id="Advanced_button" type="submit" value="Advanced Search">
-                </div>
-            </form>
-          </div>
+          <form action="https://google.com/search"> <!--ACTION tells browser where to submit the data-->
+          <div class="container">  <!--START-->
+            <div class="row">
+              <div class="col-sm-3">
+                <span>Find pages with...</span>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-sm-3">
+                <label for="all" class="desc">all these words: </label>
+              </div>
+              <div class="col-sm-9">
+                <input id="all" type="text" name="as_q" autofocus>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-3">
+                <label for="this" class="desc">this exact word or phrase: </label>
+              </div>
+              <div class="col-sm-9">
+                <input id="this" type="text" name="as_epq">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-3">
+                <label for="any" class="desc">any of these words: </label>
+              </div>
+              <div class="col-sm-9">
+                <input id="any" type="text" name="as_oq">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-3">
+                <label for="none" class="desc">none of these words: </label>
+              </div>
+              <div class="col-sm-9">
+                <input id="none" type="text" name="as_eq">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-9"></div>
+              <div class="col-sm-3" style="position: absolute; right: 0px;" >
+                <input id="Advanced_button" type="submit" value="Advanced Search">
+              </div>
+            </div>
+          </div> <!--END-->
+          </form>
+
+
 
       </body>
 </html>

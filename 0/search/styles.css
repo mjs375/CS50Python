@@ -51,7 +51,16 @@ input[type=submit]:hover { /*Hover*/
   outline: black;
 }
 
+nav {
+  position: fixed;
+  right: 0;
+  padding-right: 5px;
+}
 
+a {
+  color: #4285F4;
+  font-size: 10pt;
+}
 
 #Search_button:hover { /*SEARCH BUTTON: hover*/
   color: black;
