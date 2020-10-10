@@ -13,12 +13,10 @@ urlpatterns = [
 
     path('wiki/new', views.new, name="new"),
 
-    path("wiki/<str:title>", views.entry, name="entry"),
+    #path('wiki/edit', views.edit, name="edit"),
+
+    path("wiki/<str:title>", views.entry, name="entry")
     #makes wiki/"__" a string called title. Go into views file, use entry function, pass in 'title'.
     #Must be last, lest it overrides any other "wiki/[anything]" path-name
-
-    #path("create", views.create, name="create"),
-
-    #path("edit", views.edit, name="edit"),
 
 ]
