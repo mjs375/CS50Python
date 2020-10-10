@@ -1,0 +1,21 @@
+<!--
+LAYOUT.HTML will server as a template for which all
+inheriting templates (index, add, &c.) can steal the basic
+template, and then add their own page-specific html...
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Tasks</title>
+</head>
+
+<body>
+  {% block body %} <!--Inheriting html files can add in their own specific code here to this 'block'-->
+  {% endblock %}
+
+
+</body>
+
+</html>

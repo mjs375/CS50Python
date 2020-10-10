@@ -1,0 +1,21 @@
+{% load static %} <!-- FOR THE CSS LINK-->
+
+<!DOCTYPE html>
+<!--IS IT NEW YEAR'S DAY?-->
+
+<html lang="en">
+  <head>
+    <title>Is it New Year's?</title>
+    <link href={% static "newyear/styles.css" %} rel="stylesheet"> <!--CSS-->
+      <!--Says: CSS is in STATIC folder, inside 'newyears' folder... rather than hardcoding. Reload after adding a CSS link...-->
+  </head>
+
+  <body>
+    <!--NEED TO CONDITIONALLY DECIDE BETWEEN YES/NO: use JINJA-->
+    {% if newyear %}
+      <h1>YES</h1> <!--Only renders if the above Jinja/Python code evaluates to True-->
+    {% else %}
+      <h1>NO</h1>
+    {% endif %}
+  </body>
+</html>

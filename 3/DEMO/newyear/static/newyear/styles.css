@@ -1,0 +1,12 @@
+/*
+STATIC FILES: files that don't change (AT ALL!)
+index.html is NOT static, because the NO/YES changes dynamically based on the day's date
+*/
+
+
+h1 {
+  font-family: sans-serif;
+  font-size: 90px;
+  text-align: center;
+  color: blue;
+}

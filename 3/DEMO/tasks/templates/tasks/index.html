@@ -1,0 +1,13 @@
+{% extends "tasks/layout.html" %}
+
+{% block body%}
+<h1>Tasks</h1>
+  <ul>
+    {% for task in tasks %} <!-- A JINJA FOR-LOOP! iterate through list of tasks -->
+      <li>{{ task }}</li>
+      {% empty %}
+      <li><i>No Tasks.</i></li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'tasks:add' %}">Add a New Task</a> <!-- Django will figure this our from urls.py file [the 'name' we gave it]-->
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "tasks/layout.html" %}
+
+{% block body%}
+  <h1>Add a New Task:</h1>
+
+  <form action= "{% url 'tasks:add' %}" method="post"> <!--This means the submit button will send us to the add url. Post gives us the ability to actually send data-->
+
+    {% csrf_token %} <!--A unique token generated for each user/session, that gets submitted with the task to validate. Prevents faked requests to the website, from outside the website-->
+    <!--This includes another html input field (hidden), with a long random "value" that is the token-->
+
+    {{ form }} <!--DJANGO can create forms-->
+        <!-- <input type="text" name="task"> RAW HTML -->
+    <input type="submit">
+  </form>
+
+  <a href="{% url 'tasks:index' %}">View Tasks</a> <!-- Django will figure this our from urls.py file [the 'name' we gave it]-->
+  <!--Name-Space Collision: newyear/index* also exists! Use the app_name identifier to help clear up the issue -->
+
+{% endblock %}
