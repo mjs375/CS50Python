@@ -82,7 +82,6 @@ class EditEntryForm(forms.Form):
 def edit(request, title): #'title' is from url string 'wiki/____'
     if request.method == "GET":
         initial = {"editentry": util.get_entry(title)}
-
         return render(request, "encyclopedia/edit.html", { # CONTEXT PASSED TO EDIT.HTML PAGE
             "entry": util.get_entry(title),
             "title":title,
