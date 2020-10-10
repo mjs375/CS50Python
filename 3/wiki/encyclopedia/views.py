@@ -71,3 +71,5 @@ def new(request):
             return render(request, "encyclopedia/new.html", {
             "form": form #sends back existing form data to them to correct
             })
+
+            ##test test
