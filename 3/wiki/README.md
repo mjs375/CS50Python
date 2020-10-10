@@ -1,5 +1,5 @@
 # CS50 Web Programming with Python and Javascript
-### Matthew James Spitzer
+### *Matthew James Spitzer*
 
 **How to run the file in Atom:**
 - *$ cd wiki/*
