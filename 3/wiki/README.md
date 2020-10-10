@@ -6,7 +6,13 @@
 - *$ python3 manage.py runserver*
 
 
-- [ ] Download distribution code:
-      - *https://cdn.cs50.net/web/2020/spring/projects/1/wiki.zip*
-- [ ]
-      -
+- [x] **Download distribution code**: *https://cdn.cs50.net/web/2020/spring/projects/1/wiki.zip*
+- [x] Index Page
+- [x] Entry Page
+- [x] Search feature
+- [x] New Page
+- [x] Edit Page
+- [x] Random Page
+- [ ] Markdown-to-HTML Conversion
+- [ ] **Submit:** submit50 web50/projects/2020/x/wiki
+- [ ] **Record screencast, demonstrating functionality**
