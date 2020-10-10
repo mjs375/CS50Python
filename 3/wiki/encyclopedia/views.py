@@ -72,4 +72,26 @@ def new(request):
             "form": form #sends back existing form data to them to correct
             })
 
-            ##test test
+
+
+
+class EditEntryForm(forms.Form):
+    editentry = forms.CharField(label="Edit Entry Content", widget=forms.Textarea)
+# # #
+# EDIT AN EXISTING ENTRY'S CONTENT:
+def edit(request, title): #'title' is from url string 'wiki/____'
+    if request.method == "GET":
+        initial = {"editentry": util.get_entry(title)}
+
+        return render(request, "encyclopedia/edit.html", { # CONTEXT PASSED TO EDIT.HTML PAGE
+            "entry": util.get_entry(title),
+            "title":title,
+            "form":EditEntryForm(initial=initial) # sets value of Textarea as previous content
+        })
+
+    else:
+        form = EditEntryForm(request.POST)
+        if form.is_valid():
+            editentry = form.cleaned_data["editentry"]
+            util.save_entry(title, editentry)
+            return entry(request, title) #go back to entry page

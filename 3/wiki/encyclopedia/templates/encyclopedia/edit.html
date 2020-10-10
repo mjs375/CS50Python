@@ -16,10 +16,10 @@
   </div>
   {% endif %}
 
-  <form action="{% url 'wiki:edit' %}" method="post">
+  <form action="{% url 'wiki:edit' title %}" method="post">
     {% csrf_token %} <!--A unique token generated for each user/session. Prevents external attacks.-->
     {{ form }} <!--Django creates a form based on views.py-->
-    <input type="submit">
+    <input type="submit" value="Save Edit">
   </form>
 
 
