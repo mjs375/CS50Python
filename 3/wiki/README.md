@@ -3,7 +3,7 @@
 
 **How to run the file in Atom:**
 - *$ cd wiki/*
-- *$ python3 manage.py migrate*
+- (*$ python3 manage.py migrate*)
 - *$ python3 manage.py runserver*   
 
 ## W I K I   
