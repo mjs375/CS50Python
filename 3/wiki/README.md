@@ -1,5 +1,5 @@
 # CS50 Web Programming with Python and Javascript
-##### *Matthew James Spitzer*
+##### *Matthew James Spitzer, Oct 11 2020* 
 *https://cs50.harvard.edu/web/2020/projects/1/wiki/*
 
 #### How to run the file in Atom:
@@ -17,6 +17,6 @@
 - [x] New Page
 - [x] Edit Page
 - [x] Random Page
-- [ ] Markdown-to-HTML Conversion
-- [ ] **Submit:** submit50 web50/projects/2020/x/wiki
-- [ ] **Record screencast, demonstrating functionality**
+- [x] Markdown-to-HTML Conversion
+- [x] **Submit:** submit50 web50/projects/2020/x/wiki
+- [x] **Record screencast, demonstrating functionality**
