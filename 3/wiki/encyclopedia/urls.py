@@ -13,8 +13,9 @@ urlpatterns = [
     #path on any 'wiki/' page, calls randomizer() f(x) from views.py, gives it the reference name "random" to call (for linking, &c.)
 
     path('wiki/new', views.new, name="new"),
-
+    
     path('wiki/search', views.search, name="search"),
+
 
     path('wiki/edit/<str:title>', views.edit, name="edit"),
 
@@ -22,7 +23,11 @@ urlpatterns = [
     # Makes wiki/"__" a string called title. Go into views file, use entry function, pass in 'title'.
     # Must be last, lest it overrides any other "wiki/[anything]" path-name
 
-    path("wiki/<str:falsetitle>", views.bad_entry)
+
+
+
+
+    #path("<str:falsetitle>", views.bad_entry)
     # if none of the above path-names are satisfied, it is probably a path-name
     # that does not exist (user trying to go to a page manually).
 

@@ -24,13 +24,13 @@ def index(request):
 ## Visit wiki/TITLE, renders the TITLE page (e.g. /wiki/HTML) from get_entry(title)
     #using get_entry() from encyc/util.py:
 def entry(request, title): #input: 'title' string from URL path (wiki/"___")
-    if title not in util.list_entries():
+    if title in util.list_entries():
+        return render(request, "encyclopedia/entry.html", { #CONTEXT:
+            "entry": marker.convert(util.get_entry(title)), #get_entry uses the title to lookup,
+            "title":title
+        })
+    else: #title NOT IN list_entries()
         return bad_entry(request, title)
-    return render(request, "encyclopedia/entry.html", { #CONTEXT:
-        "entry": marker.convert(util.get_entry(title)), #get_entry uses the title to lookup,
-        "title":title
-    })
-
 
 
 
@@ -150,8 +150,8 @@ def old_matcher(en_try, q):
 #
 #
 def search(request):
-    q = request.GET.get('q') # Obtain 'q' value from search form
-    q = q.lower()
+    qq = request.GET.get('q') # Obtain 'q' value from search form
+    q = qq.lower()
     new = util.list_entries() # Obtain LIST of entry titleS
     new = [item.lower() for item in new] # Lower-case the titleS
     #
