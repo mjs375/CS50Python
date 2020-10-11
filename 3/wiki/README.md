@@ -1,10 +1,12 @@
 # CS50 Web Programming with Python and Javascript
-### *Matthew James Spitzer*
+##### *Matthew James Spitzer*
 
 **How to run the file in Atom:**
 - *$ cd wiki/*
+- *$ python3 manage.py migrate*
 - *$ python3 manage.py runserver*   
 
+## W I K I   
 #### Project Requirements:
 
 - [x] **Download distribution code**: *https://cdn.cs50.net/web/2020/spring/projects/1/wiki.zip*
