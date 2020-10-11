@@ -7,26 +7,15 @@
 {% block body %}
     <h1>Related Pages for <span style="text-decoration: underline">{{ q }}</span> </h1>
 
+    {% if matches %}
     <ul>
-        {% for entry in entries %}
-            <li><a href="{{ entry }}">{{ entry }}</a></li>
+        {% for match in matches %}
+            <li><a href="{{ match }}">{{ match }}</a></li>
         {% endfor %}
     </ul>
 
+    {% else %}
+      <p>No matches for "{{ q }}"</p>
+    {% endif %}
+
     {% endblock %}
-
-
-
-
-
-
-
-
-
-{% if messages %}
-  <div>
-    {% for message in messages %}
-    <p><i>"{{falsetitle}}": {{ message }}</i></p>
-    {% endfor %}
-  </div>
-{% endif %}
