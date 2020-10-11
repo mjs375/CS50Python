@@ -1,13 +1,15 @@
 from django.shortcuts import render
-
 from . import util #from this directory, get "util.py"
-from markdown2 import Markdown #for styling wiki entries with Markdown
 import random #for randint() #random.randint()
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django import forms
-
 from django.contrib import messages #for Error message
+
+from markdown2 import Markdown #for styling wiki entries with Markdown
+marker = Markdown()
+# marker.convert("string") # usage: marker.convert(TARGET) [target must be a string]
+
 
 
 
@@ -22,10 +24,24 @@ def index(request):
 ## Visit wiki/TITLE, renders the TITLE page (e.g. /wiki/HTML) from get_entry(title)
     #using get_entry() from encyc/util.py:
 def entry(request, title): #input: 'title' string from URL path (wiki/"___")
-    return render(request, "encyclopedia/entry.html", {
-        "entry": util.get_entry(title), #get_entry uses the title to lookup #CONTEXT:
+    if title not in util.list_entries():
+        return bad_entry(request, title)
+    return render(request, "encyclopedia/entry.html", { #CONTEXT:
+        "entry": marker.convert(util.get_entry(title)), #get_entry uses the title to lookup,
         "title":title
     })
+
+
+
+
+## When user attempts to go to "/falsetitle":
+def bad_entry(request, falsetitle):
+    messages.error(request, "Page does not exist.")
+    return render (request, "encyclopedia/index.html", {
+        "entries": util.list_entries(),
+        "falsetitle": falsetitle
+    })
+
 
 
 ## GENERATES A RANDOM PAGE FOR "Random Page" link on sidebar:
@@ -43,8 +59,8 @@ def randomizer(request):
 
 
 class NewEntryForm(forms.Form):
-    new_entry = forms.CharField(label="Create a New Entry", widget=forms.Textarea)
     new_title = forms.CharField(label="Create Title", widget=forms.TextInput)
+    new_entry = forms.CharField(label="Create a New Entry", widget=forms.Textarea)
 # # #
 ## Create a New Page: user can create a new wiki entry, enter Title & content(textarea)
 def new(request):
@@ -56,8 +72,8 @@ def new(request):
         form = NewEntryForm(request.POST) #fill the form with submitted data
 
         if form.is_valid(): #check form is validation
-            new_entry = form.cleaned_data["new_entry"] #get the new_entry
             new_title = form.cleaned_data["new_title"] #get the new_title
+            new_entry = form.cleaned_data["new_entry"] #get the new_entry
         if util.get_entry(new_title) is None: #title does not already exist
             util.save_entry(new_title, new_entry) #save the new entry (function from util.py)
             return entry(request, new_title)
@@ -81,14 +97,14 @@ class EditEntryForm(forms.Form):
 # EDIT AN EXISTING ENTRY'S CONTENT:
 def edit(request, title): #'title' is from url string 'wiki/____'
     if request.method == "GET":
-        initial = {"editentry": util.get_entry(title)}
+        initial = {"editentry": util.get_entry(title)} # for re-populating field with old content...
         return render(request, "encyclopedia/edit.html", { # CONTEXT PASSED TO EDIT.HTML PAGE
             "entry": util.get_entry(title),
             "title":title,
             "form":EditEntryForm(initial=initial) # sets value of Textarea as previous content
         })
 
-    else:
+    else: # POST:
         form = EditEntryForm(request.POST)
         if form.is_valid():
             editentry = form.cleaned_data["editentry"]
@@ -146,7 +162,7 @@ def search(request):
     #
     else: # Possible inexact match...
         matches_list = [] # empty list to store possible partial matches
-        for en_try in new: # entry by entry...
+        for en_try in new: # entry by entry, in list[] new
             match = matcher(en_try, q)
             if match != None:
                 matches_list.append(match)

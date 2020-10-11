@@ -5,13 +5,21 @@
 {% endblock %}
 
 {% block body %}
-    <h1>All Pages</h1>
 
-    <ul>
-        {% for entry in entries %}
-            <li><a href="/wiki/{{entry}}">{{entry}}</a></li>
-            <!-- {{entry}} submitted from entries from index() -->
-        {% endfor %}
-    </ul>
+  {% if messages %}
+    <div>
+      {% for message in messages %}
+      <p><i>"{{falsetitle}}": {{ message }}</i></p>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <h1>All Pages</h1>
+  <ul>
+      {% for entry in entries %}
+          <li><a href="/wiki/{{entry}}">{{entry}}</a></li>
+          <!-- {{entry}} submitted from entries from index() -->
+      {% endfor %}
+  </ul>
 
 {% endblock %}

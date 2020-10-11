@@ -6,7 +6,12 @@
 
 
 {% block body %}
-  {{ entry }}
+  {% if entry %}
+    {{ entry|safe }}
+  {% else %}
+    <p>{{ title }} not found</p>
+    <!-- Old debug if/else statement... now using messages...-->
+  {% endif %}
 
 
 <a href="{% url 'wiki:edit' title %}">Edit Entry</a>
