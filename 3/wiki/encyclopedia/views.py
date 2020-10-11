@@ -29,18 +29,23 @@ def entry(request, title): #input: 'title' string from URL path (wiki/"___")
             "entry": marker.convert(util.get_entry(title)), #get_entry uses the title to lookup,
             "title":title
         })
-    else: #title NOT IN list_entries()
-        return bad_entry(request, title)
+    else:
+        return render(request, "encyclopedia.html", {
+            "entry": util.get_entry(title),
+            "title":title
+        })
 
 
+    #else: #title NOT IN list_entries()
+        #return bad_entry(request, title)
 
 ## When user attempts to go to "/falsetitle":
-def bad_entry(request, falsetitle):
-    messages.error(request, "Page does not exist.")
-    return render (request, "encyclopedia/index.html", {
-        "entries": util.list_entries(),
-        "falsetitle": falsetitle
-    })
+#def bad_entry(request, falsetitle):
+#    messages.error(request, "Page does not exist.")
+#    return render (request, "encyclopedia/index.html", {
+#        "entries": util.list_entries(),
+#        "falsetitle": falsetitle
+#    })
 
 
 
@@ -150,8 +155,8 @@ def old_matcher(en_try, q):
 #
 #
 def search(request):
-    qq = request.GET.get('q') # Obtain 'q' value from search form
-    q = qq.lower()
+    q = request.GET.get('q') # Obtain 'q' value from search form
+    q = q.lower()
     new = util.list_entries() # Obtain LIST of entry titleS
     new = [item.lower() for item in new] # Lower-case the titleS
     #

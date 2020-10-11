@@ -12,10 +12,9 @@ urlpatterns = [
     path('wiki/', views.randomizer, name="random"),
     #path on any 'wiki/' page, calls randomizer() f(x) from views.py, gives it the reference name "random" to call (for linking, &c.)
 
-    path('wiki/new', views.new, name="new"),
-    
     path('wiki/search', views.search, name="search"),
 
+    path('wiki/new', views.new, name="new"),
 
     path('wiki/edit/<str:title>', views.edit, name="edit"),
 
