@@ -1,10 +1,10 @@
 # COMMERCE: PROJECT 2
 #### *Matthew James Spitzer, October 15, 2020*
 
-$ cd commerce
-    $ python3 manage.py makemigrations auctions [*Make migrations for app*]
-    $ python3 manage.py migrate [*Apply migrations to your DB*]
-$ python3 manage.py runserver [*Run server, copy & paste URL from terminal into browser to view website*]
+- $ cd commerce
+    - $ python3 manage.py makemigrations auctions [*Make migrations for app*]
+    - $ python3 manage.py migrate [*Apply migrations to your DB*]
+- $ python3 manage.py runserver [*Run server, copy & paste URL from terminal into browser to view website*]
 
 
 - [ ] **Models**: *app should have at least 3 models, in addition to the User model– one for auction listings, one for bids, and one for comments made on auction listings.*
