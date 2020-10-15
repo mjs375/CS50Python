@@ -58,3 +58,22 @@ class Flight(models.Model): #inherits from models.model
 
     def __str__(self): #if this fx returns a string representation of the model...:
         return f"{self.id}: {self.origin} to {self.destination}"
+
+
+
+
+class Passenger(models.Model):
+    first = models.CharField(max_length=64)
+    last = models.CharField(max_length=64)
+    flights = models.ManyToManyField(Flight, blank=True, related_name="passengers")
+        #blank=True: passengers can be registered to no flights
+        #related_name: if I have a passenger, can use Flight attribute to access all their Flights
+
+    def __str__(self): #string representation–
+        return f"{self.first} {self.last}"
+
+
+
+
+
+#
