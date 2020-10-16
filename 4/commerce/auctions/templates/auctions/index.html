@@ -3,5 +3,21 @@
 {% block body %}
     <h2>Active Listings</h2>
 
-    TODO
+    {% if message %}
+      <span style="color: red; font-weight: bold">{{ message }}</span>
+      <br/>
+    {% endif %}
+
+    <ul>
+      {% for listing in listings %}
+        <li> <!-- url 'listing' list.id MEANS "http://index/listing.3"-->
+          <a href="{% url 'listing' listing.id %}"><b>{{ listing.title }}</b></a>
+          : {{ listing.desc }} | Sold by: {{ listing.owner }}. Starting bid: {{ listing.startbid }}
+        </li>
+
+        <br>
+        {% endfor %}
+    </ul>
+
+
 {% endblock %}

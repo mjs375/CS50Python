@@ -1,0 +1,24 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+
+{% if messages %}
+<div>
+  {% for message in messages %}
+  <p><span style="color:red; text-decoration: underline">
+    {{ message }}
+  </span></p>
+  {% endfor %}
+</div>
+{% endif %}
+
+<form action="{% url 'new' %}" method="post">
+  {% csrf_token %} <!--A unique token generated for each user/session. Prevents external attacks.-->
+  {{ form }} <!--Django creates a form based on views.py-->
+  <input type="submit">
+</form>
+
+
+
+{% endblock %}
