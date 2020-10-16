@@ -34,9 +34,10 @@
     - $ python3 manage.py createsuperuser
     - admin / H*!
 #### GIT:
-- $ cd [directory]
-- $ git add . / $ git add <filename>
-- $ git commit -m "message"
-- $ git push
+1. $ cd [directory]
+2. $ git add . / $ git add <filename>
+3. $ git commit -m "message"
+    - $ git commit -am "messsage"
+4. $ git push
 
 - $ submit50 web50/projects/2020/x/commerce
