@@ -1,18 +1,7 @@
 # COMMERCE: PROJECT 2
 #### *Matthew James Spitzer, October 15, 2020*
 
-### TERMINAL COMMANDS:
-- *[$ django-admin startproject airline]*
-- *[$ python3 manage.py startapp flights]*
-- $ cd commerce
-    - $ python3 manage.py makemigrations auctions [*Make migrations for app*]
-    - $ python3 manage.py migrate [*Apply migrations to your DB*]
-- $ python3 manage.py runserver [*Run server, copy & paste URL from terminal into browser to view website*]
-    - *http://127.0.0.1:8000/*
-    – *.../admin*
-- Create an administrative User:
-    - $ python3 manage.py createsuperuser
-    - admin / H*!
+
 
 
 ## **Project Checklist:**
@@ -32,9 +21,19 @@
 - [ ] **Categories**: *users should be able to visit a page that displays a list of all listing categories. Clicking on any category should bring the user to a page that displays all the active listings in that category.*
 
 
-
-
-
+### TERMINAL COMMANDS:
+- *[$ django-admin startproject airline]*
+- *[$ python3 manage.py startapp flights]*
+- $ cd commerce
+    - $ python3 manage.py makemigrations auctions [*Make migrations for app*]
+    - $ python3 manage.py migrate [*Apply migrations to your DB*]
+- $ python3 manage.py runserver [*Run server, copy & paste URL from terminal into browser to view website*]
+    - *http://127.0.0.1:8000/*
+    – *.../admin*
+- Create an administrative User:
+    - $ python3 manage.py createsuperuser
+    - admin / H*!
+#### GIT:
 - $ cd [directory]
 - $ git add . / $ git add <filename>
 - $ git commit -m "message"
