@@ -16,12 +16,16 @@
 
 
 ## **Project Checklist:**
-- [ ] **Models**: *app should have at least 3 models, in addition to the User model– one for auction listings, one for bids, and one for comments made on auction listings.*
-- [x] **Create Listing**: *users should be able to visit a page to create a new listing, and specify– a title, a text-based description, and the starting bid. Optionally, they can provide a URL for an image of the listing/category.*
-- [x] **Active Listings Page**: *default route of the web app should let users view all currently active auction listings. For each listing, the page should display the title, description, current price, and photo.*
-- [ ] ...
-- [ ] ...
-- [ ] ...
+- [x] **Create 'Listing' model**
+- [ ] **Create 'Bid' model**
+- [ ] **Create 'Comment' model**
+
+- [ ] **Create Listing**: *Implement a 'Create a New Listing' page. Specify: title, description, starting bid, and (optionally) an image URL and/or category.*
+- [ ] **Active Listings Page**: *web homepage should let users view all currently active auction listings. For each one, display the title, description, current price, and photo.*
+- [ ] **Listing Page**: *clicking on an individual listing should take users to a specific page.*
+    - [ ] **Add to Watchlist**: *if a user is signed in, the user should be able to add the item to their Watchlist. If already added, they should instead have the option to remove it.*
+
+
 
 
 - $ cd [directory]
