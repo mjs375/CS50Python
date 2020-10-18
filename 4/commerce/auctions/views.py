@@ -10,7 +10,8 @@ from django import forms
 from .models import User, Listing, Bid, Comment
 
 
-def index(request):
+# message=None
+def index(request, message=None):# 'message=None' makes {{message}} an optional parameter.
     return render(request, "auctions/index.html", {
         "listings": Listing.objects.all() #pull all listing objects and make accessible to index.html
     })
@@ -70,23 +71,17 @@ def register(request):
 
 
 # DISPLAY INDIVIDUAL LISTING:
-@login_required #decorator: a user must be logged-in to view the page
 def listing(request, listing_id): #
     listing = Listing.objects.get(pk=listing_id)
+    if request.user.is_authenticated:
+        watchlist = request.user.watchlist.all()
+    else:
+        watchlist = None #No user is logged in, so just feed an empty watchlist that nothing will be done with later
     return render(request, "auctions/listing.html", {
-        "listing": listing
+        "listing": listing, #object
+        "watchlist": watchlist, #watchlist.html can access "watchlist" (also an object)
+        "form": CommentForm(initial={'comment_author': request.user, 'comment_listing': listing_id})
     })
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -94,6 +89,7 @@ def listing(request, listing_id): #
 https://docs.djangoproject.com/en/3.1/topics/forms/modelforms/
 ^^^ Django Documentation for ModelForms
 """
+# # #
 class NewListingForm(forms.ModelForm): #creating a ModelForm subclass
     class Meta: #configures the model to work from
         model = Listing
@@ -114,10 +110,6 @@ class NewListingForm(forms.ModelForm): #creating a ModelForm subclass
             'desc': forms.Textarea(),
             'startbid': forms.NumberInput(),
             'owner': forms.HiddenInput(), #because Listing poster shouldn't be able to 'choose owner', owner must always be them.
-
-            #'image': forms.URLInput()
-
-
         }
 #
 # #
@@ -137,10 +129,81 @@ def new(request):
             form.save() #save a new Listing object from the form's data
             return index(request)
         else:
-            return render(request, "auctions/index.html", {
-                "message": "Listing posting failed.",
-                "listings": Listing.objects.all()
-                })
+            return index(request, message="Listing posting failed.")
+
+
+# GENERATES LIST OF 'WATCHED' LISTINGS ON ".../WATCHLIST"
+@login_required
+def watchlist(request):
+    return render(request, "auctions/watchlist.html", {
+        "watchlist": request.user.watchlist.all() #watchlist.html can access "watchlist"
+    })
+
+# ADDS LISTING FROM LISTING.html TO USER'S WATCHLIST
+@login_required #if the user isn't logged in, it redirects; else...
+def add_watch(request, listing_id): # User presses 'Watch' button:
+    watch_listing = Listing.objects.get(pk=listing_id) #access the listing
+    request.user.watchlist.add(watch_listing) # Add 'watch_listing' to the watchlist of the user that made the request
+    return watchlist(request)
+
+
+
+# REMOVES LISTING FROM LISTING.html TO USER'S WATCHLIST
+@login_required
+def remove_watch(request, listing_id):
+    watch_listing = Listing.objects.get(pk=listing_id) #access the listing
+    request.user.watchlist.remove(watch_listing) # Remove 'watch_listing' to the watchlist of the user that made the request
+    return watchlist(request)
+
+
+
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+class CommentForm(forms.ModelForm):
+    class Meta: #configures the model to work from (Comment):
+        model = Comment
+        fields = [
+        "comment_author",
+        "comment_text",
+        "comment_listing"
+        ] #pull all fields from class Comment
+        labels = {
+            "comment_text": "Comment"
+        }
+        widgets = {
+            "comment_author": forms.HiddenInput(),
+            "comment_text": forms.Textarea(),
+            "comment_listing": forms.HiddenInput()
+        }
+#
+# #
+# # #
+# #
+# ADD A COMMENT TO A PARTICULAR ACTIVE LISTING
+@login_required
+def comment(request, listing_id):
+    if request.method == "GET":
+        return listing(request, {
+            "form": CommentForm(initial={"comment_author": request.user, "comment_listing": listing_id})
+        })
+    else: # form submitted:
+        form = CommentForm(request.POST) #create instance of form from POST data
+        if form.is_valid(): #validate the form...
+            form.save() #save a new Comment Object from the form's data
+            #return listing(request, listing_id)
+            #return HttpResponseRedirect(reverse("listing", args=(listing.id,)))
+            return HttpResponseRedirect(reverse("index"))
+
+
+        else: #form somehow fails to validate...:
+            return index(request, message="The comment failed to submit.")
+
+
+
+
 
 
 

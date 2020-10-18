@@ -6,6 +6,6 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("<int:flight_id>", views.flight, name="flight"),
     path("<int:flight_id>/book", views.book, name="book"),
-    path("new", views.new, name="new")
+    #path("new", views.new, name="new")
 
 ]

@@ -13,18 +13,12 @@ $ python3 manage.py runserver
 
 
 
-
-
-
-
-
-
 class User(AbstractUser):
     #AbstractUser is a MODEL that comes with Django
     #inherits from AbstractUser, already has fields for a username, email, password
-    pass
-
-
+    watchlist = models.ManyToManyField("Listing", blank=True, related_name="watchlist") #contains Listing objects
+    #IF* User & Listing reference[d] each other, and User comes first, it must call the name of Listing ('Listing'), rather than the model itself.
+    #blank=True [a User is allowed to have no watchlist items]
 
 
 
@@ -33,28 +27,37 @@ class Listing(models.Model): #AUCTION LISTINGS
     title = models.CharField(max_length=64)
     desc = models.CharField(max_length=255)
     startbid = models.IntegerField()
-
-    # image_url
     image = models.CharField(max_length=300, null=True) #null=True(image NOT required, can be left blank)
-    #image = models.URLField #default max_length=200
 
-    # STRING REP:
-    #def __str__(self):
-        #return f"{self. }...{self. }"
+    #comments = models.ManyToManyField("Comment", blank=True, related_name="comment_page") #which listing comment is on
 
+
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 class Comment(models.Model): #COMMENTS ON AUCTION LISTINGS
-    pass
+    comment_author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="author", null=True) #commenter
+    #
+    comment_text = models.CharField(max_length=1000, null=True) #comment
+    #
+    comment_listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="comments", null=True)
+    # datetime = models.DateTimeField(default=timezone.now)
 
 
+
+
+
+
+
+
+
+# # # # #
 
 class Bid(models.Model): #AUCTIONS BIDS
+    pass
+"""
     # Many People can bid on Many Listings
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="bid_listing")
     bid = models.IntegerField()
-    #bidder =
-
-
-
-
-#
+    bidder = models.ForeignKey(User, on_delete=models.CASCADE, related_name="bidder")
+"""

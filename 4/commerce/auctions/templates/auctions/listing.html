@@ -1,13 +1,60 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>{{ listing.title }}</h2>
 
-    <ul>
-        <li><b>{{ listing.title }}</b>: {{ listing.desc }} | Sold by: {{ listing.owner }}. Starting bid: {{ listing.startbid }}</li>
-        <br>
-        <img src="{{ listing.image }}">
-    </ul>
+  <div>
+    <h2>{{ listing.title }}</h2>
+      <p>{{ listing.desc }}</p>
+      <p>Starting bid: {{ listing.startbid }}</p>
+      <p>Seller: {{ listing.owner }}.</p>
+  </div>
+
+  {% if listing.image %}
+    <img src="{{ listing.image }}" alt="{{ listing.title }}">
+  {% endif %}
+
+
+
+
+
+
+  {% if user.is_authenticated %}
+<div>
+    {% if listing not in watchlist %}
+      <a href="{% url 'add_watch' listing.id %}">Add to Watchlist</a>
+    {% else %}
+      <a href="{% url 'remove_watch' listing.id %}">Remove from Watchlist</a>
+    {% endif %}
+</div>
+  {% endif %}
+
+
+{% if user.is_authenticated %}
+  <div id="addcomments"> <!--Only logged-in users can ADD comments-->
+    <form action="{% url 'comment' listing.id %}" method="post">
+      {% csrf_token %}
+      {{ form.as_p }} <!--'Form' rendered as a <p> tag-->
+      <input type="submit" id="comment_submit_btn">
+    </form>
+  </div>
+{% endif %}
+
+<div id="comments"> <!--BUT any person can SEE comments, even if not logged in-->
+  {% for comment in listing.comments.all %}
+  <!--comments=related name of models.py listing_comment-->
+  <!--^When on a LISTING, go to its comments and get all^-->
+      <div style="border: 1px solid lightgrey; border-radius: 5px">
+        <span style="font-weight: bold">{{ comment.comment_author }}:</span>
+        <span style="color: grey">{{ comment.comment_text }}</span>
+      </div>
+  {% empty %}
+    <p>No comments for this item yet.</p>
+  {% endfor %}
+</div>
+
+
+
+
 
 
 {% endblock %}
