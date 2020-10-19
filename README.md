@@ -3,13 +3,13 @@
 *Course started: October 1, 2020*
 **Matthew James Spitzer**
 
-[GitHub] (https://github.com/mjs375/CS50Python)
+[GitHub] (#https://github.com/mjs375/CS50Python)
 
-[Basic Terminal Commands](terminal-commands) | [Git Commands] (git-commands)
+[Basic Terminal Commands](#terminal-commands) | [Git Commands] (#git-commands)
 ---------------------------------------------|------------------------------
 
 
-### TERMINAL COMMANDS:
+### TERMINAL COMMANDS
 - **$ ls**
     - *short for 'list', it lists all files in the current directory*
 - **$ pwd**
@@ -49,7 +49,7 @@
 
 
 
-### GIT COMMANDS:
+### GIT COMMANDS
 - $ git clone <repository url>
     - *Download the repository to your local computer.*
 
