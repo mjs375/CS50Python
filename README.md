@@ -10,7 +10,7 @@ https://github.com/mjs375/CS50Python
     - *short for 'list', it lists all files in the current directory*
 - **$ pwd**
     - *prints the current working directory (path/path/folder)*
-- **$ cd** *<repository_name>*
+- **$ cd _<repository_name>_**
     – *stands for 'change directory'*.
 - **$ cd ..**
     - *go back one directory (from child to parent). '$ cd ../..' would go up 2 levels*
