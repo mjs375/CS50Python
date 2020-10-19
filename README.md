@@ -5,7 +5,7 @@
 
 https://github.com/mjs375/CS50Python
 
-###BASIC TERMINAL COMMANDS:
+### BASIC TERMINAL COMMANDS:
 - $ **ls**
     - *short for 'list', it lists all files in the current directory*
 - $ **pwd**
