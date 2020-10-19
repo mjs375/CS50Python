@@ -14,7 +14,7 @@ https://github.com/mjs375/CS50Python
     – *stands for 'change directory'*.
 - **$ cd ..**
     - *go back one directory (from child to parent). '$ cd ../..' would go up 2 levels*
-- **$ cd ~**
+- __$ cd ~__
     - *go back to the home directory*
 - **$ touch _<filename>_**
     - *create a new file, e.g. 'touch index.html'*
