@@ -45,7 +45,7 @@ https://github.com/mjs375/CS50Python
 
 
 
-###GIT COMMANDS:
+### GIT COMMANDS:
 - $ git clone <repository url>
     - *Download the repository to your local computer.*
 
