@@ -6,41 +6,41 @@
 https://github.com/mjs375/CS50Python
 
 ### BASIC TERMINAL COMMANDS:
-- $ **ls**
+- **$ ls**
     - *short for 'list', it lists all files in the current directory*
-- $ **pwd**
+- **$ pwd**
     - *prints the current working directory (path/path/folder)*
-- $ **cd** *<repository name>*
-    – *'change directory'*.
-- $ **cd ..**
+- **$ cd** *<repository_name>*
+    – *stands for 'change directory'*.
+- **$ cd ..**
     - *go back one directory (from child to parent). '$ cd ../..' would go up 2 levels*
-- $ **cd ~**
+- **$ cd ~**
     - *go back to the home directory*
-- $ **touch** *<filename>*
+- **$ touch _<filename>_**
     - *create a new file, e.g. 'touch index.html'*
-- $ **open** *<filename>*
+- **$ open _<filename>_**
     - *open a file in the directory*
-- $ **cp** *<filename> <newfilename>*
+- **$ cp _<filename> <newfilename>_**
     - *copy a file to another directory, e.g. 'cp ./Desktop/index.html index2.html'*
-- $ **mv** *path/<filename>*
+- **$ mv _path/<filename>_**
     - *move a file to another location, e.g. 'mv ./Desktop/image.jpg ./Documents'*
-- $ **mv** *path/<filename> samepath/<filename>*
+- **$ mv _path/<filename> samepath/<filename>_**
     - *renames a file*
-- $ **mkdir** *path/<directory>*
+- **$ mkdir _path/<directory>_**
     - *create a new directory (folder), e.g. 'mkdir ./Desktop/New_Folder'*
-- $ **rm -i** *<filename>*
+- **$ rm -i _<filename>_**
     - *remove a file, with confirmation(!)*
-- $ **rmdir** *path/<directory>*
+- **$ rmdir _path/<directory>_**
     - *remove an empty directory, e.g. 'rmdir ./Desktop/New_Folder'*
-- $ **rm -R** *<directory>*
+- **$ rm -R _<directory>_**
     - *removes nested directories*
-- $ **clear**
+- **$ clear**
     - *clear the terminal of all previous commands*
-- $ **help -s** *<command>*
+- **$ help -s _<command>_**
     - *Displays short, helpful information about the <command/pattern>*
-- $ **whatis** *<command>*
+- **$ whatis _<command>_**
     - *get a one-line description for a command, e.g. 'whatis rmdir'*
-- $ **man** *<command>*
+- **$ man _<command>_**
     - *show manual page for a command*
 
 
