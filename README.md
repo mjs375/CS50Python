@@ -5,7 +5,7 @@
 
 
 [CS50 Python Projects](#cs50-projects) | [Basic Terminal Commands](#terminal-commands) | [Git Commands](#git-commands)
---------------------------------------------------------------------------------
+--------------------------|----------------------------------|------------------------------
 *List of course projects* | *need-to-know terminal commands* | *how to use a git repository*
 
 
