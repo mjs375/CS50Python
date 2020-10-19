@@ -33,7 +33,6 @@ class Listing(models.Model): #AUCTION LISTINGS
 
 
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 class Comment(models.Model): #COMMENTS ON AUCTION LISTINGS
     comment_author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="author", null=True) #commenter
@@ -44,16 +43,13 @@ class Comment(models.Model): #COMMENTS ON AUCTION LISTINGS
     # datetime = models.DateTimeField(default=timezone.now)
 
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-
-
-
-
-
-
-# # # # #
 
 class Bid(models.Model): #AUCTIONS BIDS
+    bidder = models.ForeignKey(User, on_delete=models.CASCADE, related_name="bidder", null=True)
+    bid = models.PositiveIntegerField(null=True)
+    bid_listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="bids", null=True)
     pass
 """
     # Many People can bid on Many Listings

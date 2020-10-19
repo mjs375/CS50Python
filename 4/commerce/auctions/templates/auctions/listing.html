@@ -18,6 +18,59 @@
 
 
 
+<!-- B I D S -->
+
+{% if user.is_authenticated %}
+  {% if message %}
+    <p style="color: blue">{{ message }}</p><!--Message for [un]success of Bid-->
+  {% endif %}
+  <div id="addbids"> <!--Only logged-in users can ADD bids-->
+    <form action="{% url 'bid' listing.id %}" method="post">
+      {% csrf_token %}
+      {{ bidform.as_p }} <!--'Form' rendered as a <p> tag-->
+      <input type="submit" id="bid">
+    </form>
+  </div>
+
+  <ul>
+    {% for bid in listing.bids.all reversed %}
+      <li>
+        <div style="border: 1px solid lightgrey; border-radius: 5px">
+          {% if bid.bidder == request.user %}
+            <span style="font-weight: bold; color: purple">{{ bid.bidder }}:</span>
+            <span style="color: purple">{{ bid.bid}}</span>
+          {% else %}
+            <span style="font-weight: bold">{{ bid.bidder }}:</span>
+            <span style="color: grey"></span>{{ bid.bid}}
+          {% endif %}
+          {% if bid.bid == max_bid %}
+            <span style="color: red">&lt;-- HIGHEST BID </span>
+          {% endif %}
+        </div>
+      </li>
+    {% empty %}
+      <li>No bids for this item yet.</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- W A T C H L I S T -->
   {% if user.is_authenticated %}
 <div>
     {% if listing not in watchlist %}
@@ -29,11 +82,12 @@
   {% endif %}
 
 
+<!-- C O M M E N T S -->
 {% if user.is_authenticated %}
   <div id="addcomments"> <!--Only logged-in users can ADD comments-->
     <form action="{% url 'comment' listing.id %}" method="post">
       {% csrf_token %}
-      {{ form.as_p }} <!--'Form' rendered as a <p> tag-->
+      {{ commentform.as_p }} <!--'Form' rendered as a <p> tag-->
       <input type="submit" id="comment_submit_btn">
     </form>
   </div>

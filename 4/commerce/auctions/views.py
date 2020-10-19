@@ -8,6 +8,7 @@ from django import forms
 
     #import Class-es from models.py:
 from .models import User, Listing, Bid, Comment
+from .functions import maxxer
 
 
 # message=None
@@ -71,8 +72,10 @@ def register(request):
 
 
 # DISPLAY INDIVIDUAL LISTING:
-def listing(request, listing_id): #
+def listing(request, listing_id, message=None, max_bid=None): #
     listing = Listing.objects.get(pk=listing_id)
+    max_bid = maxxer(listing_id) #call function to get highest bid yet
+
     if request.user.is_authenticated:
         watchlist = request.user.watchlist.all()
     else:
@@ -80,7 +83,10 @@ def listing(request, listing_id): #
     return render(request, "auctions/listing.html", {
         "listing": listing, #object
         "watchlist": watchlist, #watchlist.html can access "watchlist" (also an object)
-        "form": CommentForm(initial={'comment_author': request.user, 'comment_listing': listing_id})
+        "commentform": CommentForm(initial={'comment_author': request.user, 'comment_listing': listing_id}),
+        "bidform": BidForm(initial={"bidder": request.user, "bid_listing": listing_id}),
+        "message": message,
+        "max_bid": max_bid
     })
 
 
@@ -156,12 +162,6 @@ def remove_watch(request, listing_id):
     return watchlist(request)
 
 
-
-
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
- # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
 class CommentForm(forms.ModelForm):
     class Meta: #configures the model to work from (Comment):
         model = Comment
@@ -187,12 +187,12 @@ class CommentForm(forms.ModelForm):
 def comment(request, listing_id):
     if request.method == "GET":
         return listing(request, {
-            "form": CommentForm(initial={"comment_author": request.user, "comment_listing": listing_id})
+            "commentform": CommentForm(initial={"comment_author": request.user, "comment_listing": listing_id})
         })
     else: # form submitted:
-        form = CommentForm(request.POST) #create instance of form from POST data
-        if form.is_valid(): #validate the form...
-            form.save() #save a new Comment Object from the form's data
+        commentform = CommentForm(request.POST) #create instance of form from POST data
+        if commentform.is_valid(): #validate the form...
+            commentform.save() #save a new Comment Object from the form's data
             #return listing(request, listing_id)
             #return HttpResponseRedirect(reverse("listing", args=(listing.id,)))
             return HttpResponseRedirect(reverse("index"))
@@ -201,10 +201,56 @@ def comment(request, listing_id):
         else: #form somehow fails to validate...:
             return index(request, message="The comment failed to submit.")
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 
+class BidForm(forms.ModelForm):
+    class Meta:
+        model = Bid
+        fields = '__all__'
+        labels = {
+            "bidder": "Bidder",
+            "bid": "Bid",
+            "bid_listing": "Listing"
+        }
+        widgets = {
+            "bidder": forms.HiddenInput(),
+            "bid": forms.NumberInput(),
+            "bid_listing": forms.HiddenInput()
+        }
+#
+# #
+# # #
+# #
+#
+def bid(request, listing_id):
+    # # # # # # #
+    max_bid = maxxer(listing_id) #call maxbid function
+    # # # # # # # #
 
-
+    if request.method == "GET":
+        return listing(request, {
+            "bidform": BidForm(initial={"bidder": request.user, "bid_listing": listing_id})
+        })
+    # # #
+    # # #
+    else: #FORM submitted w/ data via POST:
+        bidform = BidForm(request.POST) #populate form with POST data via request.
+        ## BIDDING CHECKS:
+        if bidform.is_valid(): #validate the form...
+            #CHECK BID IS HIGH ENOUGH:
+            mybid = int(request.POST.get('bid')) # what the user tried to field('bid')
+            if mybid > max_bid:
+                bidform.save() #save the bid to the DB
+                message = "Bid successfully placed!"
+            else: # user's bid wasN'T the highest yet (or equal to the startbid)
+                message = "Bid amount too small."
+            max_bid = int(max_bid) #for html purposes
+            return listing(request, listing_id, message=message, max_bid=max_bid)
+        else: #form otherwise doesn't validate...
+            return HttpResponseRedirect(reverse("index"))
 
 
 #
