@@ -3,9 +3,9 @@
 *Course started: October 1, 2020*
 **Matthew James Spitzer**
 
-[GitHub] (#https://github.com/mjs375/CS50Python)
+[GitHub](#https://github.com/mjs375/CS50Python)
 
-[Basic Terminal Commands](#terminal-commands) | [Git Commands] (#git-commands)
+[Basic Terminal Commands](#terminal-commands) | [Git Commands](#git-commands)
 ---------------------------------------------|------------------------------
 
 
