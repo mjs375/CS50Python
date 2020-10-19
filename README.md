@@ -4,10 +4,8 @@
 **Matthew James Spitzer**
 
 
-[CS50 Python Projects](#cs50-projects)
---------------------------------------
-[Basic Terminal Commands](#terminal-commands) | [Git Commands](#git-commands)
-----------------------------------------------|------------------------------
+[CS50 Python Projects](#cs50-projects) | [Basic Terminal Commands](#terminal-commands) | [Git Commands](#git-commands)
+
 
 
 
