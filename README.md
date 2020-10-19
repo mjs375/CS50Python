@@ -3,9 +3,13 @@
 *Course started: October 1, 2020*
 **Matthew James Spitzer**
 
-https://github.com/mjs375/CS50Python
+[GitHub] (https://github.com/mjs375/CS50Python)
 
-### BASIC TERMINAL COMMANDS:
+[Basic Terminal Commands](terminal-commands) | [Git Commands] (git-commands)
+---------------------------------------------|------------------------------
+
+
+### TERMINAL COMMANDS:
 - **$ ls**
     - *short for 'list', it lists all files in the current directory*
 - **$ pwd**
