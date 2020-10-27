@@ -5,16 +5,24 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django import forms
+from django.db.models import Max
 
-    #import Class-es from models.py:
-from .models import User, Listing, Bid, Comment
-from .functions import maxxer
+from .models import User, Listing, Bid, Comment #Category #import Class-es from models.py:
+from .functions import maxxer #import f(x) to find highest bid
 
 
 # message=None
 def index(request, message=None):# 'message=None' makes {{message}} an optional parameter.
     return render(request, "auctions/index.html", {
-        "listings": Listing.objects.all() #pull all listing objects and make accessible to index.html
+        "listings": Listing.objects.all(), #pull all listing objects and make accessible to index.html
+        #
+        "bids": Bid.objects.all()
+        #
+    })
+
+def index2(request, message=None):
+    return render(request, "auctions/index2.html", {
+        "listings": Listing.objects.all()
     })
 
 
@@ -102,20 +110,23 @@ class NewListingForm(forms.ModelForm): #creating a ModelForm subclass
         # fields = '__all__' #pulls all fields from the model to use
         # exclude = ['owner'] #excludes a particular field from the model (while including all others)
 
-        fields = ['title', 'desc', 'startbid','owner', 'image'] #list of form fields, pulled from model 'Listing'
+        fields = ['title', 'desc', 'startbid','owner', 'image', 'category'] #list of form fields, pulled from model 'Listing'
 
         labels = { # DICT
             'title': 'Title',
             'desc': 'Description of Item',
             'startbid': 'Starting Bid',
             'owner': 'Owner',
-            'image': 'Item Image URL'
+            'image': 'Item Image URL',
+            'category': 'Category',
         }
         widgets = {
             'title': forms.TextInput(), #this is actually the default
             'desc': forms.Textarea(),
             'startbid': forms.NumberInput(),
             'owner': forms.HiddenInput(), #because Listing poster shouldn't be able to 'choose owner', owner must always be them.
+            'winner': forms.HiddenInput(),
+            #'category': #default widget is select with choices dropdown
         }
 #
 # #
@@ -131,11 +142,19 @@ def new(request):
         })
     else: #POST:
         form = NewListingForm(request.POST) #create form instance from POST data
+        #
+        #
         if form.is_valid():
             form.save() #save a new Listing object from the form's data
             return index(request)
         else:
             return index(request, message="Listing posting failed.")
+
+
+
+
+
+
 
 
 # GENERATES LIST OF 'WATCHED' LISTINGS ON ".../WATCHLIST"
@@ -152,14 +171,12 @@ def add_watch(request, listing_id): # User presses 'Watch' button:
     request.user.watchlist.add(watch_listing) # Add 'watch_listing' to the watchlist of the user that made the request
     return watchlist(request)
 
-
-
 # REMOVES LISTING FROM LISTING.html TO USER'S WATCHLIST
 @login_required
 def remove_watch(request, listing_id):
     watch_listing = Listing.objects.get(pk=listing_id) #access the listing
     request.user.watchlist.remove(watch_listing) # Remove 'watch_listing' to the watchlist of the user that made the request
-    return watchlist(request)
+    return listing(request, listing_id)
 
 
 class CommentForm(forms.ModelForm):
@@ -193,17 +210,11 @@ def comment(request, listing_id):
         commentform = CommentForm(request.POST) #create instance of form from POST data
         if commentform.is_valid(): #validate the form...
             commentform.save() #save a new Comment Object from the form's data
-            #return listing(request, listing_id)
-            #return HttpResponseRedirect(reverse("listing", args=(listing.id,)))
-            return HttpResponseRedirect(reverse("index"))
-
-
+            #return HttpResponseRedirect(reverse("index")) #COMMENT SUCCESSFULLY SUBMITTED
+            return listing(request, listing_id)
         else: #form somehow fails to validate...:
             return index(request, message="The comment failed to submit.")
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
- # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 
 class BidForm(forms.ModelForm):
@@ -218,7 +229,8 @@ class BidForm(forms.ModelForm):
         widgets = {
             "bidder": forms.HiddenInput(),
             "bid": forms.NumberInput(),
-            "bid_listing": forms.HiddenInput()
+            "bid_listing": forms.HiddenInput(),
+            'winner': forms.HiddenInput()
         }
 #
 # #
@@ -229,8 +241,8 @@ def bid(request, listing_id):
     # # # # # # #
     max_bid = maxxer(listing_id) #call maxbid function
     # # # # # # # #
-
-    if request.method == "GET":
+    # #
+    if request.method == "GET": #GIVE USER A BLANK BID FORM
         return listing(request, {
             "bidform": BidForm(initial={"bidder": request.user, "bid_listing": listing_id})
         })
@@ -245,12 +257,72 @@ def bid(request, listing_id):
             if mybid > max_bid:
                 bidform.save() #save the bid to the DB
                 message = "Bid successfully placed!"
+                #
+                max_bid = maxxer(listing_id) #call maxbid function #Update max_bid AFTER the latest bid was (just) placed
+                max_bid = int(max_bid) #for html purposes
+                #
+                #
+                # # Update the listing's new max_bid in the Listing model
+                a = Listing.objects.get(pk=listing_id)
+                a.bigbid = max_bid #updates the 'bigbid' field of Listing (saved as variable 'a'), sets it equal to max_bid
+                a.save() #
+                #
             else: # user's bid wasN'T the highest yet (or equal to the startbid)
                 message = "Bid amount too small."
-            max_bid = int(max_bid) #for html purposes
+
+            #
+            #
             return listing(request, listing_id, message=message, max_bid=max_bid)
         else: #form otherwise doesn't validate...
             return HttpResponseRedirect(reverse("index"))
+
+
+
+def close(request, listing_id):
+    listing = Listing.objects.get(pk=listing_id)
+    if request.user == listing.owner:
+        # ADD CHECK TO SEE IF ANYONE ACTUALLY BID FOR ITEM AND A WINNER CAN BE DECLARED
+        listing.active = False #owner closes the auction/listing status is inactivated
+        # # #
+        getbigbid = Bid.objects.filter(bid_listing=listing_id).aggregate(Max('bid'))
+        bigbid = getbigbid['bid__max']
+        getwinner = Bid.objects.filter(bid_listing=listing_id, bid=bigbid).values("bidder")
+        try: # Have any bids been made (can a winner be declared?)
+            winner = getwinner[0]['bidder'] #get dict value
+            listing.winner = User.objects.get(pk=winner)
+        except: # Auction is closed but no one actually bid:
+            pass
+        listing.save() #actually save the winner
+        message = None
+    else: #non-owner somehow accesses the page:
+        message = "You cannot close another person's auction listing."
+    return index(request)
+
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+
+def cats(request): #displays list of all categories
+    categories = Listing.objects.order_by("category").values_list("category", flat=True).distinct()
+    #categories = Category.objects.filter(active=True).order_by("cat").values_list("cat", flat=True).distinct()
+    return render (request, "auctions/cat.html", {
+        "categories": categories
+    })
+
+
+def cat(request, cat): #displays list of all listings per category [receives request and specific 'cat']
+    catitems = Listing.objects.filter(category=cat)
+    return render(request, "auctions/cat.html", {
+        "category": cat,
+        "catitems": catitems
+        #"listings": Listing.objects.filter(category=cat).filter(active=True), #must use integer ID
+#right cat is from def (cat)
+
+    })
+
+
 
 
 #

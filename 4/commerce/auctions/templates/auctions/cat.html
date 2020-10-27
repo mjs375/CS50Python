@@ -1,0 +1,34 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>CATEGORIES</h2>
+
+    {% if message %}
+      <span style="color: red; font-weight: bold">{{ message }}</span>
+      <br/>
+    {% endif %}
+
+
+<!-- DISPLAY ALL CATEGORIES (LIST OF CATS)-->
+      <ul>
+    {% for cat in categories %}
+      {% if cat %}
+        <li>
+          <a href="{% url 'cat' cat %}">{{ cat.title }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+      </ul>
+
+<!-- DISPLAY ALL ITEMS IN CATEGORIES (LIST OF LISTINGS)-->
+    <ul>
+      {% for catitem in catitems %} <!--Each categorical item-->
+        {% if catitem.active == True %}
+          <li> <!-- url 'listing' list.id MEANS "http://index/listing.3"-->
+            <a href="{% url 'listing' catitem.id %}">{{ catitem.title }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+{% endblock %}

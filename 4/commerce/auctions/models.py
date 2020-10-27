@@ -2,6 +2,9 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from django.db.models import Max #delete if unnecessary
+
+
 """ ANYTIME YOU MAKE CHANGES TO MODELS.PY:
 $ python3 manage.py makemigrations auctions
     [Make migrations for app]
@@ -22,16 +25,45 @@ class User(AbstractUser):
 
 
 
+class Bid(models.Model): #AUCTIONS BIDS
+    bidder = models.ForeignKey(User, on_delete=models.CASCADE, related_name="bidder", null=True)
+    bid_listing = models.ForeignKey("Listing", on_delete=models.CASCADE, related_name="bids", null=True)
+    bid = models.PositiveIntegerField(null=True)
+
+
 class Listing(models.Model): #AUCTION LISTINGS
+    # id [auto-generated]
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="listing_owner")
     title = models.CharField(max_length=64)
     desc = models.CharField(max_length=255)
     startbid = models.IntegerField()
-    image = models.CharField(max_length=300, null=True) #null=True(image NOT required, can be left blank)
+    image = models.CharField(max_length=300, null=True, blank=True) #null=True(image NOT required, can be left blank)
+    #
+    active = models.BooleanField(default=True)
+    winner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="winner", blank=True, default=None, null=True)
+    #
+    #category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name="listing_cat", null=True)
+    #
+    LIST_CATS = [
+        ('BOOKS', 'Books'),
+        ('BROOMS', 'Brooms'),
+        ('DARK MAGIC', 'Dark Magic'),
+        ('ENCHANTED ITEMS', 'Enchanted Items'),
+        ('MISC.', 'Misc.'),
+        ('POTIONS', 'Potions'),
+        ('TOYS', 'Toys'),
+        ('WANDS', 'Wands'),
+    ]
+    #
+    category = models.CharField(choices=LIST_CATS, blank=True, null=True, max_length=200)
+    #
+    #
+    bigbid = models.IntegerField(null=True)
+    #
 
-    #comments = models.ManyToManyField("Comment", blank=True, related_name="comment_page") #which listing comment is on
 
 
+# # # # #
 
 
 class Comment(models.Model): #COMMENTS ON AUCTION LISTINGS
@@ -44,16 +76,3 @@ class Comment(models.Model): #COMMENTS ON AUCTION LISTINGS
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
-
-class Bid(models.Model): #AUCTIONS BIDS
-    bidder = models.ForeignKey(User, on_delete=models.CASCADE, related_name="bidder", null=True)
-    bid = models.PositiveIntegerField(null=True)
-    bid_listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="bids", null=True)
-    pass
-"""
-    # Many People can bid on Many Listings
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="bid_listing")
-    bid = models.IntegerField()
-    bidder = models.ForeignKey(User, on_delete=models.CASCADE, related_name="bidder")
-"""

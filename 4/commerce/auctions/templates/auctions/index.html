@@ -3,20 +3,45 @@
 {% block body %}
     <h2>Active Listings</h2>
 
+
+
     {% if message %}
       <span style="color: red; font-weight: bold">{{ message }}</span>
       <br/>
     {% endif %}
 
+
+
+
+
     <ul>
       {% for listing in listings %}
-        <li> <!-- url 'listing' list.id MEANS "http://index/listing.3"-->
-          <a href="{% url 'listing' listing.id %}"><b>{{ listing.title }}</b></a>
-          : {{ listing.desc }} | Sold by: {{ listing.owner }}. Starting bid: {{ listing.startbid }}
-        </li>
+        {% if listing.active == True %}
+          <li style="border:1px black solid; padding: 3px"><!-- url 'listing' list.id MEANS "http://index/listing.3"-->
+            <div>
+              <a href="{% url 'listing' listing.id %}"><b>{{ listing.title }}:</b></a>
+              <br>
+              <span style="color: grey; font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ listing.desc }}</span>
+              <br>
+            <div style="text-align: right;">
+              <span><b>Sold by: </b>{{ listing.owner }}.<b>Starting bid:</b> ${{ listing.startbid | floatformat:2 }}.</span>
 
-        <br>
-        {% endfor %}
+            <!-- GET THE MAX BID FOR THE ITEM: -->
+            {% if listing.bigbid > listing.startbid %}
+              <span><b>Current Price:</b> ${{ listing.bigbid | floatformat:2 }}</span>
+            {% else %}
+              <span>(No bids yet.)</span>
+            {% endif %}
+            <!-- :END -->
+            </div>
+            </div>
+          {% if listing.image %}
+            <img style="width:10%" src="{{ listing.image }}" alt="{{ listing.title }}">
+          {% endif %}
+          </li>
+          <br>
+        {% endif %}
+      {% endfor %}
     </ul>
 
 

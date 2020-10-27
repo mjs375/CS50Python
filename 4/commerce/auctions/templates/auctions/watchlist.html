@@ -5,10 +5,17 @@
 <h1>WATCHLIST</h1>
 <ul>
   {% for listing in watchlist %}
-    <p>
+    <li>
       <a href="{% url 'listing' listing.id %}">{{ listing.title }}</a>
       <!--Goes to url with name="listing"/listing.id-->
-    </p>
+      {% if listing.active == False %}
+      <ul>
+        <li style="font-style:italic; color: grey">This Auction has closed.
+          <a href="{% url 'remove_watch' listing.id %}">Remove from Watchlist</a>
+        </li>
+      </ul>
+      {% endif %}
+    </li>
   {% empty %}
     <p>No watchlist items.</p>
   {% endfor %}

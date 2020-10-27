@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Colors</title>
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            /*All content of page is loaded, then run following fx:*/
+
+            document.querySelectorAll('button').forEach((button) => {
+              /*get ALL the button tags in the doc: for each of them (loop), run the following fx:*/
+              /*Note the => notation, replaces (function())*/
+              button.onclick = function() {
+                document.querySelector('#hello').style.color = button.dataset.color
+                /*when particular button is clicked, get the doc's hello id tag and change its style color to the button's dataset, aka match to 'data-color' below in the HTML.*/
+              }
+            });
+
+
+
+            /*
+            // Change font color to red
+            document.querySelector('#red').onclick = function() {
+              document.querySelector('#hello').style.color = 'red';
+            }
+            // Change font color to blue
+            document.querySelector('#blue').onclick = function() {
+              document.querySelector('#hello').style.color = 'blue';
+            }
+            // Change font color to green
+            document.querySelector('#green').onclick = function() {
+              document.querySelector('#hello').style.color = 'green';
+            }
+            */
+
+
+
+
+          });
+
+        </script>
+
+    </head>
+    <body>
+        <h1 id="hello">Hello!</h1>
+        <!-- <button onclick="count()">Count</button> -->
+         <button data-color="red">Red</button> <!-- id="red" -->
+         <button data-color="blue">Blue</button>
+         <button data-color="green">Green</button>
+    </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Tasks</title>
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+
+            //By default, submit button should be disabled until data entered:
+            document.querySelector('#submit').disabled = true;
+
+            document.querySelector('#task').onkeyup = () => {
+
+              if (document.querySelector('#task').value.length > 0) { //if task input field has any characters in it, it can be submitted; else, NO!
+                document.querySelector('#submit').disabled = false;
+              } else {
+                document.querySelector('#submit').disabled = true;
+              }
+            }
+
+            document.querySelector('form').onsubmit = () => {
+              const task = document.querySelector('#task').value;
+
+              console.log(task) //print to the JS console (Inspect>Console)
+              //stop form from submitting (web request) [everything will be done client-side]
+
+              const li = document.createElement('li') //Create new listelement
+              li.innerHTML = task; //What goes inside new tag? the task from above
+
+              document.querySelector('#tasks').append(li);
+
+              document.querySelector('#task').value = ""; //clear out entry field
+              document.querySelector('#submit').disabled = true; //
+
+              return false;
+            }
+          });
+
+
+
+
+
+        </script>
+    </head>
+    <body>
+        <h1>Tasks</h1>
+        <ul id="tasks">
+        </ul>
+
+        <form>
+            <input id="task" placeholder = "New Task" type="text">
+            <input id="submit" type="submit">
+        </form>
+    </body>
+</html>

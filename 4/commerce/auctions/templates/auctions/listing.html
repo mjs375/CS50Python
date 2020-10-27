@@ -1,16 +1,44 @@
 {% extends "auctions/layout.html" %}
 
+
+
+{% block head %}
+ {#nothing here#}
+{% endblock %}
+
+
+
+
 {% block body %}
 
   <div>
     <h2>{{ listing.title }}</h2>
+        {% if listing.active == False %}
+        <h6 style="font-style:italic; color:red">Listing is closed.</h6>
+        {% endif %}
+        {% if request.user == listing.winner %}
+          <p style="color:blue">You are the winner of this auction item!</p>
+        {% endif %}
       <p>{{ listing.desc }}</p>
-      <p>Starting bid: {{ listing.startbid }}</p>
-      <p>Seller: {{ listing.owner }}.</p>
+      <p><strong>Category:</strong> {{ listing.category }}</p>
+      <p><b>Starting bid: </b>${{ listing.startbid | floatformat:2  }}</p>
+
+      {% if listing.bigbid %}
+        {% if listing.active == True %}
+          <p><b>Current price: </b>${{ listing.bigbid | floatformat:2 }}</p>
+        {% else %}
+          <p><b>Winning price:</b> ${{ listing.bigbid | floatformat:2 }}. <b>Winner: </b>{{ listing.winner }} </p>
+        {% endif %}
+      {% else %}
+        <p>No bids on this item yet.</p>
+      {% endif %}
+
+      <p><b>Seller: </b>{{ listing.owner }}.</p>
   </div>
 
   {% if listing.image %}
-    <img src="{{ listing.image }}" alt="{{ listing.title }}">
+    <img style="width:20%" src="{{ listing.image }}" alt="{{ listing.title }}">
+    <br>
   {% endif %}
 
 
@@ -20,17 +48,37 @@
 
 <!-- B I D S -->
 
+
+
 {% if user.is_authenticated %}
   {% if message %}
     <p style="color: blue">{{ message }}</p><!--Message for [un]success of Bid-->
   {% endif %}
-  <div id="addbids"> <!--Only logged-in users can ADD bids-->
-    <form action="{% url 'bid' listing.id %}" method="post">
-      {% csrf_token %}
-      {{ bidform.as_p }} <!--'Form' rendered as a <p> tag-->
-      <input type="submit" id="bid">
-    </form>
-  </div>
+
+{% if request.user != listing.owner %}
+  {% if listing.active == True %}
+    <div id="addbids"> <!--Only logged-in users can ADD bids-->
+      <form action="{% url 'bid' listing.id %}" method="post">
+        {% csrf_token %}
+        {{ bidform.as_p }} <!--'Form' rendered as a <p> tag-->
+        <input type="submit" id="bid">
+      </form>
+    </div>
+                  {% endif %}
+              {% else %}
+                {% if listing.active == True %}
+                  <a href="{% url 'close' listing.id %}">Close Auction</a>
+                {% else %}
+                    {% if not listing.winner %}
+                      <p style="font-style: italic; color: grey">No one bid. Item returned to owner.</p>
+                    {% else %}
+                    <p style="font-style: italic; color: red">This auction has ended.</p>
+                  {% endif %}
+  {% endif %}
+{% endif %}
+
+
+
 
   <ul>
     {% for bid in listing.bids.all reversed %}
@@ -82,6 +130,9 @@
   {% endif %}
 
 
+
+
+
 <!-- C O M M E N T S -->
 {% if user.is_authenticated %}
   <div id="addcomments"> <!--Only logged-in users can ADD comments-->
@@ -106,7 +157,14 @@
   {% endfor %}
 </div>
 
-
+{% if user.is_authenticated %}
+{% else %}
+    <br>
+    <div style="text-align: center">
+      <span style="font-style: italic; color: grey">Please sign in to make bids and/or comments.</span>
+    </div>
+    <br>
+{% endif %}
 
 
 
