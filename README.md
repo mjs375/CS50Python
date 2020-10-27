@@ -12,9 +12,12 @@
 
 
 ### CS50 Projects
-- [ ]
-- [ ]
-- [ ]
+- [x] **[0] Search**: *a front-end for Google Search, Image Search, and Advanced Search. HTML & CSS.*
+- [x] **Wiki**: *a Wikipedia-like online encyclopedia. Python, Django, SQL, Markdown.*
+- [x] **Commerce**: *an online auction website where users can post listings, bid, comment and create a watchlist. Python, Django, sqlite3.*
+- [ ] **Mail**: *...*
+- [ ] **Network**: *...*
+- [ ] **Capstone**: *...*
 
 ### TERMINAL COMMANDS
 - **$ ls**
