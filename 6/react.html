@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>Hello</title>
+  </head>
+  <body>
+    <div id="app" />
+    <script type="text/babel">/*Actually JSX, not Javascript*/
+
+      class Hello extends React.Component {
+          render() { /*props are the properties declared below*/
+              return (
+                  <h1>Hello, {this.props.name}!</h1>
+              );
+          }
+      }
+
+      /*React components are all in classes:*/
+      class App extends React.Component {
+        /*The render() method is always needed, says what HTML to return by writing html-like syntax...*/
+        render() { /*Passes in the Hello component (3 times)*/
+          return (
+            <div>
+              <h1>Welcome!</h1>
+              Hello!
+              <Hello name="Harry" />
+              <Hello name="Ron" />
+              <Hello name="Hermione" />
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<App />, document.querySelector("#app"));
+      /*'App' component to be inserted into the page, in the id app element*/
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Animation</title>
+
+        <!-- CSS CAN ANIMATE!!!!! -->
+        <style>
+
+            @keyframes grow { /*defining the actual animation*/
+                from { /* start 'frame'*/
+                    font-size: 20px;
+                    color: blue;
+                    left: 0%; /*from position LEFT ...*/
+                    font-style: italic
+                }
+                to  { /* end 'frame' */
+                    font-size: 100px;
+                    color: red;
+                    left: 50%; /*...to position middle, etc.*/
+                    font-style: none;
+                }
+            } /*CSS will automatically determine the in-between frames, from start to end */
+
+            @keyframes move {
+              0% {
+                left: 0%;
+              }
+              50% {
+                left: 50%;
+              }
+              100% {
+                left: 0%;
+              }
+            }
+
+
+
+
+            h1 {
+                animation-name: move; /*grow;*/   /*make a name*/
+                animation-duration: 2s; /*time of animation*/
+                animation-fill-mode: forwards; /*what direction the animation 'goes in'*/
+                position: relative;
+                animation-iteration-count: infinite; /* 2; */   /*How often the animation occurs...*/
+            }
+
+        </style>
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            const h1 = document.querySelector('h1');
+            h1.style.animationPlayState = 'paused'; //initial PlayState... paused!
+
+            document.querySelector('button').onclick = () => {
+              if (h1.style.animationPlayState === 'paused') {
+                h1.style.animationPlayState = 'running';
+              } else {
+                h1.style.animationPlayState = 'paused';
+              }
+            }
+          });
+
+        </script>
+    </head>
+    <body>
+        <button>Click here</button> <!--Will be controlled by JS-->
+        <h1>Welcome!</h1>
+
+    </body>
+</html>

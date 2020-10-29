@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Webpage</title>
+        <style>
+
+            @keyframes hide { /*Defining the animation 'hide'*/
+                0% {
+                    opacity: 1; /*full visibility*/
+                    height: 100%;
+                    line-height: 100%;
+                    padding: 20px;
+                    margin-bottom: 10px;
+                }
+                75% { /*Only opacity is changing: 75-100% of the animation will reduce the height*/
+                    opacity: 0; /*totally invisible*/
+                    height: 100%;
+                    line-height: 100%;
+                    padding: 20px;
+                    margin-bottom: 10px;
+                }
+                100% { /*Post is already invisible by 75%: BUT slowly shrink the space it takes up so that the next post below the hidden one doesn't jump up so abruptly...:*/
+                    opacity: 0;
+                    height: 0px;
+                    line-height: 0px;
+                    padding: 0px;
+                    margin-bottom: 0px;
+                }
+            }
+
+            .hide  {
+                float: right;
+            }
+
+            .post {
+                background-color: #77dd11;
+                padding: 20px;
+                margin-bottom: 10px;
+                /*The animation for a more user-friendly Hide post feature:*/
+                animation-name: hide;
+                animation-duration: 2s;
+                animation-fill-mode: forwards;
+                animation-play-state: paused; /*initial play state*/
+            }
+
+            body {
+                padding-bottom: 50px;
+            }
+
+        </style>
+
+
+        <script>
+
+            // Start with first post
+            let counter = 1;
+
+            // Load posts 20 at a time
+            const quantity = 20;
+
+            // When DOM loads, render the first 20 posts
+            document.addEventListener('DOMContentLoaded', load);
+
+            // If scrolled to bottom, load the next 20 posts
+            window.onscroll = () => {
+                if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+                    load();
+                }
+            };
+
+            // If hide button is clicked, delete the post
+            document.addEventListener('click', event => { //anytime a user clicks ANYWHERE...
+                const element = event.target; // 'event'.target: what was clicked?
+                if (element.className === 'hide') { //Is 'element'  a Hide button?
+                    element.parentElement.style.animationPlayState = 'running'; //the slow fade of the post-hide animation...
+                    element.parentElement.addEventListener('animationend', () =>  { //When animation is totally over, do the following: actually remove the element('s parent)
+                        element.parentElement.remove();
+                    });
+                } //else... nothing/pass
+            });
+
+            // Load next set of posts
+            function load() {
+
+                // Set start and end post numbers, and update counter
+                const start = counter;
+                const end = start + quantity - 1;
+                counter = end + 1;
+
+                // Get new posts and add posts
+                fetch(`/posts?start=${start}&end=${end}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.posts.forEach(add_post);
+                })
+            };
+
+            // Add a new post with given contents to DOM
+            function add_post(contents) {
+
+                // Create new post, w/ Hide button & content
+                const post = document.createElement('div');
+                post.className = 'post';
+                post.innerHTML = `${contents} <button class="hide">Hide</button>`;
+
+                // Add post to DOM
+                document.querySelector('#posts').append(post);
+            };
+        </script>
+    </head>
+    <body>
+        <div id="posts">
+        </div>
+    </body>
+</html>
