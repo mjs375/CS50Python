@@ -1,9 +1,12 @@
+<!-- <html> -->
+
+
 {% extends "mail/layout.html" %}
 {% load static %}
 
 {% block body %}
     <h2>{{ request.user.email }}</h2>
-
+    <!--Each button calls Javascript to show/hide certain parts of the same SINGLE-PAGE web application.-->
     <button class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button>
     <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
     <button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
@@ -11,8 +14,37 @@
     <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
     <hr>
 
-    <div id="emails-view">
+
+
+
+
+
+
+
+    <div id="emails-view"> <!--* * * * * * * * * * * * * * * * *-->
+    </div> <!--* * * * * * * * * * * * * * * * *-->
+
+
+
+    <div id="read-email"> <!--SINGLE EMAIL WILL VIEW-->
+      <div class="email-container">
+        <span class="heading">From: </span><span id="email-sender"></span>
+      </div>
+      <div class="email-container">
+        <span class="heading">To: </span><span id="email-recipient"></span>
+      </div>
+      <div class="email-container">
+        <span class="heading">Subject: </span><span id="email-subject"></span>
+      </div>
+      <div class="email-container">
+        <span class="heading">Timestamp: </span><span id="email-timestamp"></span>
+      </div>
+      <p id="email-body"></p>
+      <div id="replarchive-btn-box"><!--JS will add reply/archive buttons here for emails (if not in Sent mailbox)-->
+      </div>
     </div>
+
+
 
     <div id="compose-view">
         <h3>New Email</h3>
@@ -26,10 +58,20 @@
             <div class="form-group">
                 <input class="form-control" id="compose-subject" placeholder="Subject">
             </div>
-            <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
-            <input type="submit" class="btn btn-primary"/>
+            <textarea class="form-control" id="compose-body" placeholder="Body" required></textarea>
+            <input style="margin-top:10px; margin-bottom: 10px;" type="submit" class="btn btn-primary"/>
         </form>
     </div>
+
+
+
+    <div id="popup"></div>
+    <!-- Manually trigger the Toast pop-up:
+      <div id="snackbar">Your email has been archived</div>
+      <button class="btn btn-sm btn-outline-primary" onclick="myFunction()">Show Snackbar</button>
+    -->
+
+
 {% endblock %}
 
 {% block script %}

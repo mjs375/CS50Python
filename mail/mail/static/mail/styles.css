@@ -1,3 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Cut&display=swap'); /*Google Fonts import*/
+
+
 textarea {
     min-height: 400px;
+}
+
+#replarchive-btn-box {
+  text-align: right;
+  margin: 5px;
+  padding: 5px;
+}
+
+
+
+div.mail { /*each piece of mail in the inbox [class 'mail' w/in div element]*/
+    border: 1px black solid;
+    padding: 5px;
+    margin: 5px;
+  }
+div.mail:hover { /* When hovering over mail item*/
+  color: #5a189a;
+  font-weight: bold;
+}
+
+#email-subject {
+  animation-name: glow; /*name of keyframe below*/
+  animation-duration: 3s;
+  animation-iteration-count: 3;
+}
+
+h2 {
+  font-family: 'Nova Cut', cursive; /*Font from Google (imported above)*/
+  color: #5a189a;
+  animation-name: colorchange;
+  animation-duration: 1s;
+
+}
+
+.email-container, #email-body { /* Contains entire email From/To/Subject/Timestamp fields*/
+  border: 1px solid black;
+  margin: 5px;
+  padding: 5px;
+}
+
+.heading { /*'From:', 'To:', etc.*/
+  font-weight: bold;
+}
+
+#email-body {
+}
+
+#replarchive-btn-box {
+  display: inline-block;
+}
+
+#reply, #archive {
+  margin-right: 5px;
+}
+
+
+/*
+Mac: CMD + SHIFT + R
+  - force-update the cache to use the latest CSS stylesheet, not the previously cached one (don't be lazy!)
+*/
+
+
+
+
+
+
+
+
+
+#snackbar { /*Toast pop-up when email is archived [citation: w3schools.com]*/
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #deb100; /* background color */
+  color: #5a189a; /* text color */
+  text-align: center; /* Centered text */
+  border-radius: 5px; /* Rounded borders */
+  border: 1px solid #5a189a;
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+
+
+
+
+
+
+
+
+@keyframes colorchange {
+    0% {
+      color: #5a189a; /*see COOLORS.co for CSS color palettes*/
+    }
+    50% {
+      color: #926c15;
+    }
+    100%  {
+      color: #5a189a;
+    }
+}
+
+@keyframes glow {
+  0% {
+    color: black;
+  }
+  50% {
+    color: blue;
+  }
+  100% {
+    color: black;
+  }
 }
