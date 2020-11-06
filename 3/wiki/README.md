@@ -3,9 +3,10 @@
 *https://cs50.harvard.edu/web/2020/projects/1/wiki/*
 
 #### How to run the file in Atom:
-- *$ cd wiki/*
-- (*$ python3 manage.py migrate*)
-- *$ python3 manage.py runserver*   
+- ```$ cd wiki/```
+  - (```$ python manage.py makemigrations```)
+  - (```$ python manage.py migrate```)
+- ```$ python manage.py runserver``` 
 
 ## W I K I   
 #### Project Requirements:
