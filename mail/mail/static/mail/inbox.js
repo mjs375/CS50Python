@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 // J A V A S C R I P T :
 
 
@@ -123,9 +116,21 @@ function show_emails(emails) { //F(x) will render each email in its own div on t
   // {JS if-else ternary:} condition ? expression_if_true : expression_if_false;
   mail_item.style.backgroundColor = emails.read ? '#E0E0E0' : 'white';
   //Create cols for sender/subject/timestamp (+ add attribute + add innerHTML)
-  const mail_sender = document.createElement('div');
-  mail_sender.setAttribute('class', 'col sender');
-  mail_sender.innerHTML = emails.sender;
+
+  // If Sender inbox, display recipient instead of sender
+  const mailbox = document.querySelector('h3').innerHTML;
+  console.log(mailbox)
+  if (mailbox === "Sent") { //Sent
+    //console.log("Created mail_recipients")
+    var mail_recipients = document.createElement('div');
+    mail_recipients.setAttribute('class', 'col recipient');
+    mail_recipients.innerHTML = emails.recipients;
+  } else { //Inbox/Archive [ S T A B L E ]
+    var mail_sender = document.createElement('div');
+    mail_sender.setAttribute('class', 'col sender');
+    mail_sender.innerHTML = emails.sender;
+  }
+
   const mail_subject = document.createElement('div');
   mail_subject.setAttribute('class', 'col subject');
   mail_subject.innerHTML = emails.subject;
@@ -135,14 +140,24 @@ function show_emails(emails) { //F(x) will render each email in its own div on t
   // Add the data-filled elements actually into the template!:
   document.querySelector('#emails-view').append(mail_item); //Append the new div into the HTML #emails-view div
   document.getElementById(emails.id).appendChild(row);
-  document.getElementById(`${emails.id}-row`).append(mail_sender);
+
+
+  if (mailbox==="Sent") { //Sent
+    document.getElementById(`${emails.id}-row`).append(mail_recipients);
+  } else { //Inbox/Archive
+    document.getElementById(`${emails.id}-row`).append(mail_sender);
+  }
+
   document.getElementById(`${emails.id}-row`).append(mail_subject);
   document.getElementById(`${emails.id}-row`).append(mail_timestamp);
   // When a piece of mail is clicked on, open up that email:
   mail_item.addEventListener('click', () => load_email(`emails/${emails.id}`));
-};
+}; // END OF SHOW_MAIL() * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-/* STABLE COPY OF SHOW_MAILS:
+
+
+
+/* STABLE>>OLD COPY OF SHOW_MAILS:
 function show_emails(emails) { //F(x) will render each email in its own div on the ${mailbox} 'page'
   // Create Mail items
   const mail_item = document.createElement('div'); //create container div
@@ -192,16 +207,6 @@ function read_email(email) {
 
   add_buttons(); // Call function to load archive button:
 
-  //Listen for Reply/Archive buttons to be clicked inside email..
-
-  /*
-  window.onload=function(){
-    var reply = document.getElementById('#reply');
-  }
-  if (reply) {
-    reply.addEventListener('click', () => reply(email));
-  }
-*/
   document.querySelector('#reply').addEventListener('click', () => reply(email));
   document.querySelector('#archive').addEventListener('click', () => archive(`emails/${email.id}`));
 
@@ -216,9 +221,6 @@ function reply(email) {
     document.querySelector('#compose-view').style.display = 'block';
     // Clear out composition fields
     document.querySelector('#compose-recipients').value = email.sender;
-
-
-
     // Prevent "RE: RE: RE:" if a reply-to-a-reply...:
     const str = `${email.subject}`;
     var patt = new RegExp("RE:");

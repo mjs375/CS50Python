@@ -13,6 +13,7 @@ textarea {
 
 
 
+
 div.mail { /*each piece of mail in the inbox [class 'mail' w/in div element]*/
     border: 1px black solid;
     padding: 5px;

@@ -1,3 +1,8 @@
+## MAIL
+### Matthew Spitzer
+- Completed November 5, 2020
+- Github: mjs375
+
 
 $ python3 manage.py createsuperuser
   - *create an admin account (url-path/admin)*
