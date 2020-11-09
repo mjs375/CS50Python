@@ -64,7 +64,7 @@ class Flight(models.Model): #inherits from models.model
         return self.origin != self.destination and self.duration > 0 # BUG HERE!!!
 
 
-
+   
 class Passenger(models.Model):
     first = models.CharField(max_length=64)
     last = models.CharField(max_length=64)
