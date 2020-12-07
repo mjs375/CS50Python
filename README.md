@@ -16,7 +16,7 @@
 - [x] **[1] Wiki**: *a Wikipedia-like online encyclopedia. Python, Django, SQL, Markdown.*
 - [x] **[2] Commerce**: *an online auction website where users can post listings, bid, comment and create a watchlist. Python, Django, sqlite3.*
 - [x] **Mail**: *a front-end, single-page application using Javascript that makes API calls to send and receive emails.*
-- [ ] **Network**: *...*
+- [x] **Network**: *a single-page Twitterlike social media web app.*
 - [ ] **Capstone**: *...*
 
 
