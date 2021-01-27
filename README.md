@@ -1,6 +1,6 @@
 # C | S | 5 | 0 | P | y | t | h | o | n
-*Repository for CS50: Web Programming with Python and Javascript*
-*Most Projects utilize Python, HTML + CSS, Javascript, Django + Jinja. Course started: October 1, 2020*
+- *Repository for CS50: Web Programming with Python and Javascript*
+- *Most Projects utilize Python, HTML + CSS, Javascript, Django + Jinja. Course started: October 1, 2020*
 **Matthew James Spitzer**
 
 
