@@ -6,7 +6,7 @@
 
 ### CS50 Projects
 - [x] **[0] Search**: *a front-end for Google Search, Image Search, and Advanced Search. HTML & CSS.*
-  - [🎥](https://youtu.be/qz-boka5HxA)
+  - [🎥](https://youtu.be/qz-boka5HxA) (Click on the camera to see a video demo of the website's functionality)
 - [x] **[1] Wiki**: *a Wikipedia-like online encyclopedia. Python, Django, SQL, Markdown.*
   - [🎥](https://youtu.be/_A0URKeuQmM)
 - [x] **[2] Commerce**: *an online auction website where users can post listings, bid, comment and create a watchlist. Python, Django, sqlite3.*
